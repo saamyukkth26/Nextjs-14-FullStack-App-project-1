@@ -1,6 +1,6 @@
 const Forgotpassword = () => {
     return (
-        <div>AboutPage</div>
+        <div></div>
     )
 };
 
