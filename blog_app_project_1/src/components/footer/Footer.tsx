@@ -1,7 +1,7 @@
 import "@/components/footer/Footer.css";
 
 
-let thedate = new Date();
+const thedate = new Date();
 
 
 const Footer = () => {

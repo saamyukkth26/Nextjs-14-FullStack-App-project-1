@@ -50,9 +50,7 @@ export const Videobg: React.FC = () => {
       </div>
     );
 };
-interface EthereumModelProps {
-    // Define any props here if needed
-}
+
 export const EthereumModel: React.FC = () => {
     const myModel = useLoader(GLTFLoader, '/ethereum_3d_logo.glb');
     const modelRef = useRef<Mesh>(null);
