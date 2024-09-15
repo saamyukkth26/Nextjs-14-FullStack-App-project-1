@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
+import { Roboto } from 'next/font/google';
 import "./globals.css";
+import Image from "next/image";
+import { Videobg } from "@/components/Videobg/Videobg";
+
+
+
+
+const roboto_init = Roboto({
+  subsets: ['latin'],
+  weight: ['100','300','700'],
+  variable: '--font-roboto',
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +42,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="videobgh">
+          <Videobg />
+        </div>
+        <div className="container">
+          {/* <Image
+            src="/img2.jpg"
+            alt="Descriptive text for screen readers"
+            // width={500}
+            // height={300}
+            layout="fill"
+            objectFit="cover"
+            className="absolute top-0 left-0 z-0"
+          /> */}
+          
+
+          <Navbar />
+
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
