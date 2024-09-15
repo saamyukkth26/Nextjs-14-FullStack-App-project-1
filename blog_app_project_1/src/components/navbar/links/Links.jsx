@@ -1,10 +1,8 @@
 "use client";
 
 import {useState} from 'react';
-import Link from "next/link"
 import styles from "./links.module.css"
 import NavLinks from "@/components/navbar/links/NavLinks/NavLinks"
-import { Key } from "react";
 
 const links = [
   {

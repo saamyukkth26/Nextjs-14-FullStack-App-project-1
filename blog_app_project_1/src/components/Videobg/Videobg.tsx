@@ -34,7 +34,7 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Mesh } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
+import { PerspectiveCamera } from '@react-three/drei';
 
 export const Videobg: React.FC = () => {
     return (

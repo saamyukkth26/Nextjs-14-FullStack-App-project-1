@@ -4,7 +4,6 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import { Roboto } from 'next/font/google';
 import "./globals.css";
-import Image from "next/image";
 import { Videobg } from "@/components/Videobg/Videobg";
 
 
