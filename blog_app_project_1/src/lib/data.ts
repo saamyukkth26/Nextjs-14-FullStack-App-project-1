@@ -164,7 +164,7 @@ export const projects = [
     title: "Personal Portfolio",
     description: "This very portfolio — built with Next.js 14, Framer Motion, and React Three Fiber. Apple-inspired dark UI with 3D animations.",
     tech: ["Next.js 14", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
-    liveUrl: "https://nextjs-14-full-stack-app-project-1-bdw9luioz.vercel.app/",
+    liveUrl: "https://nextjs-14-full-stack-app-project-1.vercel.app/",
     screenshotUrl: "/screenshots/Personal_website.png",
     githubUrl: "",
     featured: true,
