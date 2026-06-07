@@ -4,13 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { skills, personalInfo } from "@/lib/data";
 
-const SKILL_COLORS: Record<string, string> = {
-  "Programming & Scripting": "from-blue-500/20 to-cyan-500/20 border-blue-500/30",
-  "AI / ML & GenAI": "from-purple-500/20 to-pink-500/20 border-purple-500/30",
-  "Frameworks & Agentic AI": "from-green-500/20 to-teal-500/20 border-green-500/30",
-  "Databases & Data Stores": "from-orange-500/20 to-amber-500/20 border-orange-500/30",
-  "Cloud, DevOps & Tools": "from-indigo-500/20 to-blue-500/20 border-indigo-500/30",
-};
 
 const STAT_ITEMS = [
   { value: "8.65", label: "CGPA at VIT", suffix: "" },
@@ -123,14 +116,15 @@ export function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + catIdx * 0.08 }}
-                className={`p-6 rounded-2xl border bg-gradient-to-br ${SKILL_COLORS[category] || "from-white/5 to-white/2 border-white/10"} backdrop-blur-sm`}
+                className="p-6 rounded-2xl border border-white/[0.15] bg-white/[0.06] backdrop-blur-md hover:bg-white/[0.10] hover:border-white/[0.25] transition-all duration-300"
+                style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 24px rgba(0,0,0,0.3)" }}
               >
                 <h4 className="text-sm font-semibold text-white mb-4">{category}</h4>
                 <div className="flex flex-wrap gap-2">
                   {items.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1 text-xs font-medium rounded-full bg-black/30 text-[#86868b] border border-white/[0.08] hover:text-white hover:border-white/20 transition-colors cursor-default"
+                      className="px-3 py-1 text-xs font-medium rounded-full bg-black/40 text-[#86868b] border border-white/[0.08] hover:text-white hover:border-white/20 transition-colors cursor-default"
                     >
                       {skill}
                     </span>

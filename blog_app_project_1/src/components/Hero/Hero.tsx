@@ -49,7 +49,7 @@ function TypedText() {
   }, [charIndex, deleting, roleIndex]);
 
   return (
-    <span className="text-accent-light">
+    <span className="text-white">
       {displayed}
       <span className="animate-pulse">|</span>
     </span>
@@ -123,26 +123,6 @@ export function Hero() {
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Available for opportunities
           </motion.div>
-
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-6xl md:text-8xl font-bold tracking-tight text-white mb-4"
-          >
-            <span className="block">Saamyukkth</span>
-            <span
-              className="block"
-              style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #86868b 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Suresh
-            </span>
-          </motion.h1>
 
           {/* Typed role */}
           <motion.div

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { projects } from "@/lib/data";
 
 function ProjectCard({
@@ -14,6 +15,37 @@ function ProjectCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
   const [hovered, setHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  if (project.comingSoon) {
+    return (
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: index * 0.08 }}
+        className="relative rounded-3xl border border-dashed border-white/[0.1] bg-white/[0.01] overflow-hidden min-h-[420px] flex flex-col items-center justify-center text-center p-10"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/40 to-black pointer-events-none" />
+        <div className="relative z-10 flex flex-col items-center gap-5">
+          <div className="relative w-16 h-16 flex items-center justify-center">
+            <span className="absolute inset-0 rounded-full border border-white/10 animate-ping" />
+            <span className="absolute inset-1 rounded-full border border-white/[0.06]" />
+            <span className="text-2xl">🚀</span>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-white mb-2">Coming Soon</h3>
+            <p className="text-sm text-[#6e6e73] leading-relaxed max-w-xs">
+              {project.description}
+            </p>
+          </div>
+          <span className="px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] text-xs text-[#6e6e73]">
+            In Progress
+          </span>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -23,98 +55,94 @@ function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.08 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden cursor-pointer transition-all duration-500 hover:border-white/[0.12] hover:bg-white/[0.04]"
+      className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] overflow-hidden cursor-pointer transition-all duration-500 hover:border-white/[0.14] hover:bg-white/[0.04]"
       style={{
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
         boxShadow: hovered
-          ? "0 20px 60px rgba(0,0,0,0.5), 0 0 60px rgba(0,113,227,0.08)"
+          ? "0 24px 64px rgba(0,0,0,0.6), 0 0 80px rgba(0,113,227,0.08)"
           : "none",
       }}
     >
       {/* Gradient top bar */}
       <div className={`h-1 w-full bg-gradient-to-r ${project.gradient}`} />
 
-      {/* Thumbnail / Preview area */}
-      <div className="relative h-48 overflow-hidden bg-black">
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-10`}
-        />
-        {/* Project name as visual when no thumbnail */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-6">
-            <div
-              className={`text-5xl font-bold bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent mb-2 opacity-30 group-hover:opacity-50 transition-opacity`}
-            >
+      {/* Thumbnail */}
+      <div className="relative h-52 overflow-hidden bg-[#0d0d0d]">
+
+        {/* Screenshot image or fallback gradient */}
+        {project.screenshotUrl && !imgError ? (
+          <Image
+            src={project.screenshotUrl}
+            alt={`${project.title} preview`}
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            onError={() => setImgError(true)}
+            unoptimized
+          />
+        ) : (
+          /* Fallback: stylised gradient placeholder */
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20 flex items-center justify-center`}>
+            <span className="text-5xl font-black text-white/10 select-none">
               {project.title.slice(0, 2).toUpperCase()}
-            </div>
+            </span>
           </div>
+        )}
+
+        {/* Dark scrim so hover overlay is readable */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+        {/* Hover overlay with Visit CTA */}
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-[#f5f5f7] transition-colors shadow-lg"
+          >
+            ↗ Visit Live Site
+          </a>
         </div>
 
-        {/* Live preview iframe if URL exists */}
-        {project.liveUrl && (
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <iframe
-              src={project.liveUrl}
-              className="w-full h-full scale-[0.6] origin-top-left"
-              style={{ width: "167%", height: "167%" }}
-              loading="lazy"
-              title={project.title}
-              sandbox="allow-scripts allow-same-origin"
-            />
-          </div>
-        )}
-
-        {/* Featured badge */}
-        {project.featured && (
-          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#0071e3]/20 border border-[#0071e3]/30 text-[10px] font-semibold text-[#2997ff] uppercase tracking-wide">
-            Featured
-          </div>
-        )}
+        {/* Live badge */}
+        <div className="absolute top-3 left-3 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-sm border border-white/10 text-[10px] font-semibold text-white uppercase tracking-wide">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          Live on Vercel
+        </div>
       </div>
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#2997ff] transition-colors line-clamp-1">
+        <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#2997ff] transition-colors">
           {project.title}
         </h3>
-        <p className="text-sm text-[#6e6e73] leading-relaxed mb-4 line-clamp-2">
+        <p className="text-sm text-[#6e6e73] leading-relaxed mb-4">
           {project.description}
         </p>
 
-        {/* Tech tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tech.slice(0, 4).map((tech) => (
-            <span
-              key={tech}
-              className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-white/[0.06] text-[#86868b] border border-white/[0.06]"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.tech.length > 4 && (
-            <span className="px-2.5 py-0.5 text-[11px] rounded-full bg-white/[0.04] text-[#6e6e73]">
-              +{project.tech.length - 4}
-            </span>
-          )}
-        </div>
+        {project.tech.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tech.map((tech) => (
+              <span
+                key={tech}
+                className="px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-white/[0.06] text-[#86868b] border border-white/[0.06]"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
 
-        {/* Actions */}
-        <div className="flex gap-3 pt-4 border-t border-white/[0.06]">
-          {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-medium text-[#2997ff] hover:text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span>↗</span> Live Demo
-            </a>
-          ) : (
-            <span className="flex items-center gap-1.5 text-xs text-[#6e6e73]">
-              Private / Internal
-            </span>
-          )}
+        <div className="flex items-center gap-4 pt-4 border-t border-white/[0.06]">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-semibold text-[#2997ff] hover:text-white transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            ↗ Live Demo
+          </a>
           {project.githubUrl && (
             <a
               href={project.githubUrl}
@@ -144,12 +172,9 @@ export function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
-
   return (
     <section id="projects" ref={sectionRef} className="relative py-32 bg-black overflow-hidden">
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] rounded-full bg-green-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <motion.div
@@ -162,42 +187,16 @@ export function Projects() {
             Projects
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            What I&apos;ve shipped.<br />
-            <span className="text-[#86868b]">Production AI systems.</span>
+            Live on Vercel.<br />
+            <span className="text-[#86868b]">Real apps, real users.</span>
           </h2>
         </motion.div>
 
-        {/* Featured */}
-        {featured.length > 0 && (
-          <div className="mb-8">
-            <p className="text-xs font-semibold text-[#6e6e73] uppercase tracking-widest mb-6">
-              Featured Projects
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {featured.map((project, i) => (
-                <ProjectCard key={project.title} project={project} index={i} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Other projects */}
-        {rest.length > 0 && (
-          <div>
-            <p className="text-xs font-semibold text-[#6e6e73] uppercase tracking-widest mb-6 mt-12">
-              More Projects
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {rest.map((project, i) => (
-                <ProjectCard
-                  key={project.title}
-                  project={project}
-                  index={featured.length + i}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {projects.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
