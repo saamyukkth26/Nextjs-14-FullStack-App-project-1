@@ -118,7 +118,8 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8 text-sm text-text-secondary"
+            className="inline-flex items-center gap-2 px-4 py-1.5 border mb-8 text-sm backdrop-blur-sm"
+            style={{ borderRadius: "4px", borderColor: "var(--border-strong)", background: "var(--btn-bg)", color: "var(--text-secondary)" }}
           >
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             Available for opportunities
@@ -151,18 +152,10 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-3 items-center"
           >
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="btn-glass px-8 py-3.5 text-base font-semibold"
-              style={{ borderRadius: "6px" }}
-            >
+            <button onClick={() => scrollToSection("projects")} className="btn" style={{ padding: "12px 32px", fontSize: "15px", fontWeight: "600" }}>
               View My Work
             </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="btn-glass px-8 py-3.5 text-base font-medium"
-              style={{ borderRadius: "6px" }}
-            >
+            <button onClick={() => scrollToSection("contact")} className="btn" style={{ padding: "12px 32px", fontSize: "15px" }}>
               Get in Touch
             </button>
           </motion.div>
@@ -174,23 +167,11 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.8 }}
             className="flex gap-3 mt-10"
           >
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-glass"
-              style={{ borderRadius: "6px" }}
-            >
+            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="btn">
               <LinkedInIcon />
               LinkedIn
             </a>
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-glass"
-              style={{ borderRadius: "6px" }}
-            >
+            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn">
               <GitHubIcon />
               GitHub
             </a>

@@ -96,18 +96,10 @@ export function Contact() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-12">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="btn-glass px-8 py-4 text-base font-semibold"
-                style={{ borderRadius: "6px" }}
-              >
+              <a href={`mailto:${personalInfo.email}`} className="btn" style={{ padding: "14px 32px", fontSize: "15px", fontWeight: "600" }}>
                 Say Hello →
               </a>
-              <button
-                onClick={copyEmail}
-                className="btn-glass px-8 py-4 text-base font-medium"
-                style={{ borderRadius: "6px" }}
-              >
+              <button onClick={copyEmail} className="btn" style={{ padding: "14px 32px", fontSize: "15px" }}>
                 {copied ? "✓ Copied!" : "Copy Email"}
               </button>
             </div>
@@ -169,7 +161,7 @@ export function Contact() {
             <span className="text-[#6e6e73] text-sm">Saamyukkth Suresh</span>
           </div>
           <p className="text-[#6e6e73] text-sm">
-            Built with Next.js 14, Framer Motion & Three.js &mdash; {new Date().getFullYear()}
+            Humans imagine. Agents execute. &mdash; {new Date().getFullYear()}
           </p>
           <div className="flex gap-4">
             <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#6e6e73] hover:text-white transition-colors text-sm">LinkedIn</a>
