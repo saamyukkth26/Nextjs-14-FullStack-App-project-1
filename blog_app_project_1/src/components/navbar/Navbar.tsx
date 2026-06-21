@@ -158,9 +158,7 @@ const Navbar = () => {
                     </svg>
                   )}
                 </motion.span>
-                <span className="hidden sm:inline">
-                  {theme === "dark" ? "Light" : "Dark"}
-                </span>
+                <span>{theme === "dark" ? "Light" : "Dark"}</span>
               </button>
 
               {/* Hire Me */}
