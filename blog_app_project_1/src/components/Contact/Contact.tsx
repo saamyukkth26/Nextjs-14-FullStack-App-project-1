@@ -95,17 +95,18 @@ export function Contact() {
               I&apos;m open to full-time roles, freelance projects, and collaborations in AI/ML, GenAI, and full-stack engineering. If you have an interesting problem to solve, let&apos;s talk.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-3 mb-12">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#0071e3] text-white font-semibold text-base hover:bg-[#2997ff] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,113,227,0.4)]"
+                className="btn-glass px-8 py-4 text-base font-semibold"
+                style={{ borderRadius: "6px" }}
               >
-                Say Hello
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                Say Hello →
               </a>
               <button
                 onClick={copyEmail}
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/10 text-[#86868b] font-medium text-base hover:text-white hover:border-white/30 hover:bg-white/5 transition-all duration-300"
+                className="btn-glass px-8 py-4 text-base font-medium"
+                style={{ borderRadius: "6px" }}
               >
                 {copied ? "✓ Copied!" : "Copy Email"}
               </button>
